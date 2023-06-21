@@ -7,7 +7,7 @@
     "dbank_assets": {
       "dependencies": ["dbank"],
       "frontend": {
-        "entrypoint": "src/dbank_assets/src/home.html"
+        "entrypoint": "src/dbank_assets/src/index.html"
       },
       "source": ["src/dbank_assets/assets", "dist/dbank_assets/"],
       "type": "assets"

@@ -1,10 +1,3 @@
-// ****************** Defi ATM *****************
-// A Simulated Network of Defi ATMs deployed on the IPC Blockchain
-
-// Author: Hernan Clarke
-// Using the Motoko language to develop the canister to be deployed in the blockchain-
-// in the front end, I used vanilla HTML and CSS to provide a simple interface to the ATMs.
-
 import { dbank } from '../../declarations/dbank';
 
 var splashScreen = document.getElementById('splashscreen');
