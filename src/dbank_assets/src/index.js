@@ -1,19 +1,62 @@
-import { dbank } from "../../declarations/dbank";
+import { dbank } from '../../declarations/dbank';
 
-document.querySelector("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const button = e.target.querySelector("button");
+var splashScreen = document.getElementById('splashscreen');
+var atmScreen = document.querySelector('.container');
 
-  const name = document.getElementById("name").value.toString();
+// atmScreen.style.opacity = 0;
 
-  button.setAttribute("disabled", true);
+atmScreen.style.display = 'none';
 
-  // Interact with foo actor, calling the greet method
-  const greeting = await dbank.greet(name);
+window.addEventListener('load', async function () {
+  // console.log("Finished loading");
+  update();
+});
 
-  button.removeAttribute("disabled");
+document
+  .querySelector('form')
+  .addEventListener('submit', async function (event) {
+    event.preventDefault();
+    // console.log("Submitted.");
 
-  document.getElementById("greeting").innerText = greeting;
+    const button = event.target.querySelector('#submit-btn');
 
-  return false;
+    const inputAmount = parseFloat(
+      document.getElementById('input-amount').value
+    );
+    const outputAmount = parseFloat(
+      document.getElementById('withdrawal-amount').value
+    );
+
+    button.setAttribute('disabled', true);
+
+    if (document.getElementById('input-amount').value.length != 0) {
+      await dbank.topUp(inputAmount);
+    }
+
+    if (document.getElementById('withdrawal-amount').value.length != 0) {
+      await dbank.withdraw(outputAmount);
+    }
+
+    await dbank.compound();
+
+    update();
+
+    document.getElementById('input-amount').value = '';
+    document.getElementById('withdrawal-amount').value = '';
+
+    button.removeAttribute('disabled');
+  });
+
+async function update() {
+  const currentAmount = await dbank.checkBalance();
+  document.getElementById('value').innerText =
+    Math.round(currentAmount * 100) / 100;
+}
+
+splashScreen.addEventListener('click', () => {
+  splashScreen.style.opacity = 0;
+  setTimeout(() => {
+    splashScreen.style.display = 'none';
+    atmScreen.style.display = 'block';
+  }, 500);
 });
