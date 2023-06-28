@@ -1,4 +1,4 @@
-# DefilATM
+# DefiATM
 
 Welcome to DefiATM Dapp on the internet computer blockchain. By default.
 
